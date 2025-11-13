@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "658875335123",
+    "project_id": "espaldapp-5ae80",
+    "storage_bucket": "espaldapp-5ae80.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:658875335123:android:f675894a94330e8eb96f26",
+        "android_client_info": {
+          "package_name": "com.example.espaldapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3ys-LbfwQiDJJyl5aWVD0IvmQMlFKlz4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
