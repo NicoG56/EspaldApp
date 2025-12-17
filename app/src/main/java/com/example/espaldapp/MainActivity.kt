@@ -14,6 +14,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.espaldapp.ui.theme.ProyectoBaseLoginTheme
+import com.example.espaldapp.vistas.ConfiguracionScreen
+import com.example.espaldapp.vistas.HistorialScreen
 import com.example.espaldapp.vistas.HomeScreen
 import com.example.espaldapp.vistas.LoginScreen
 import com.example.espaldapp.vistas.RegisterScreen
@@ -44,8 +46,17 @@ class MainActivity : ComponentActivity() {
                             composable("register") {
                                 RegisterScreen(navController, auth)
                             }
-                            composable("home") {
-                                HomeScreen(navController)
+                            composable("home") { backStackEntry ->
+                                HomeScreen(navController, backStackEntry)
+                            }
+                            composable("configuracion") { backStackEntry ->
+                                val parentEntry = remember(backStackEntry) {
+                                    navController.getBackStackEntry("home")
+                                }
+                                ConfiguracionScreen(navController, parentEntry)
+                            }
+                            composable("historial") {
+                                HistorialScreen(navController)
                             }
                         }
                     }

@@ -111,7 +111,7 @@ fun RegisterScreen(navController: NavController, auth: FirebaseAuth) {
     }
 }
 
-private fun ColumnScope.validarRegistro(
+private fun validarRegistro(
     email: String,
     password: String,
     confirm: String,
@@ -121,18 +121,22 @@ private fun ColumnScope.validarRegistro(
 ) {
     if(email.isBlank()|| password.isBlank()||confirm.isBlank()){
         Toast.makeText(context, "Ingresa todos los campos", Toast.LENGTH_SHORT).show()
+        return
     }
 
     if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-        Toast.makeText(context, "Ingresa un correo valido", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Ingresa un correo válido", Toast.LENGTH_SHORT).show()
+        return
     }
 
     if(password.length<6){
         Toast.makeText(context, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show()
+        return
     }
 
     if(password != confirm) {
         Toast.makeText(context, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
+        return
     }
 
     auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
@@ -140,7 +144,7 @@ private fun ColumnScope.validarRegistro(
             Toast.makeText(context, "Registro exitoso", Toast.LENGTH_SHORT).show()
             onSucess()
         } else {
-            Toast.makeText(context, "Error en el registro", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Error en el registro: ${task.exception?.message}", Toast.LENGTH_LONG).show()
         }
     }
 }
