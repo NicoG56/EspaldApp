@@ -160,6 +160,8 @@ fun HomeScreen(
                         Text(
                             text = if (uiState.connectionState == ConnectionState.CONNECTING) {
                                 "Conectando..."
+                            } else if (uiState.isReconnecting) {
+                                "Conexión perdida - reconectando automáticamente..."
                             } else {
                                 "Desconectado - Toca el icono Bluetooth para conectar"
                             },
@@ -250,6 +252,16 @@ fun HomeScreen(
                     color = Color.Black
                 )
 
+                if (uiState.isPaused) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = "Sesión en pausa",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = Color.Black
+                    )
+                }
+
                 // Botones de acción: Finalizar Sesión y Ver Historial
                 Spacer(modifier = Modifier.height(16.dp))
                 Row(
@@ -270,6 +282,21 @@ fun HomeScreen(
                             imageVector = Icons.Default.Refresh,
                             contentDescription = "Reiniciar sesión",
                             tint = if (uiState.seatedTime != "00:00:00") Color.Black else Color.Gray,
+                            modifier = Modifier.size(28.dp)
+                        )
+                    }
+                    
+                    Spacer(modifier = Modifier.width(16.dp))
+
+                    // Botón Pausar/Reanudar
+                    IconButton(
+                        onClick = { viewModel.togglePauseResume() },
+                        enabled = uiState.connectionState == ConnectionState.CONNECTED
+                    ) {
+                        Icon(
+                            imageVector = if (uiState.isPaused) Icons.Default.PlayArrow else Icons.Default.Pause,
+                            contentDescription = if (uiState.isPaused) "Reanudar sesión" else "Pausar sesión",
+                            tint = if (uiState.connectionState == ConnectionState.CONNECTED) Color.Black else Color.Gray,
                             modifier = Modifier.size(28.dp)
                         )
                     }
